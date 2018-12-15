@@ -19,11 +19,11 @@ public class Veranstalter {
     private String name;
     private String adresse;
     
-    //Assoziation -> Reise
+    //Veranstalter -> Reise
     private List<Reise> reisen;
 
     public Veranstalter() {
-        //Assoziation -> Reise
+        //Veranstalter -> Reise
         this.reisen = new ArrayList<Reise>();
     }
 

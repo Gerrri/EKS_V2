@@ -24,7 +24,7 @@ public class Reise {
 
     public Reise() {
         //Reise -> Buchung
-        this.buchungen = new ArrayList<Buchung>();
+        this.buchungen = new ArrayList<>();
     }
     
     @XmlElement(name="reisenr")
