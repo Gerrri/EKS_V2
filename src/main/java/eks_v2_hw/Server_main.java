@@ -16,7 +16,7 @@ import org.glassfish.jersey.server.ResourceConfig;
  *
  * @author Dustin
  */
-public class Server_start {
+public class Server_main {
 
     /**
      * @param args the command line arguments

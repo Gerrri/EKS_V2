@@ -32,6 +32,18 @@ public class AlleReisen {
         return this.reisen;
     }
     
+    public Reise getReisebyReisenr(int nr){
+        
+        for(Reise r:reisen){
+            if(r.getReisenr()==nr){
+                return r;
+            }
+        }
+        
+        return null;
+        
+    }
+    
     public boolean addReise(Reise r){
         return this.reisen.add(r);
     }

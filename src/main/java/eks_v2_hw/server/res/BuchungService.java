@@ -6,13 +6,6 @@
 package eks_v2_hw.server.res;
 
 
-import static javax.swing.text.html.FormSubmitEvent.MethodType.POST;
-import javax.ws.rs.Consumes;
-import static javax.ws.rs.HttpMethod.POST;
-import javax.ws.rs.POST;
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.core.MediaType;
 
 /**
  *

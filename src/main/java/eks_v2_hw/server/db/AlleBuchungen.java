@@ -6,6 +6,7 @@
 package eks_v2_hw.server.db;
 
 import eks_v2_hw.entity.Buchung;
+import eks_v2_hw.entity.Reise;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -34,6 +35,16 @@ public class AlleBuchungen {
     
     public void addBuchung(Buchung b){
         buchungen.add(b);
+    }
+    
+    public Buchung createBuchung(Reise reise){
+      Buchung b = new Buchung();
+      
+      b.setBuchungsnr(buchungen.size()+1);
+      reise.addBuchung(b);
+      
+      this.addBuchung(b);
+      return b;
     }
     
     
