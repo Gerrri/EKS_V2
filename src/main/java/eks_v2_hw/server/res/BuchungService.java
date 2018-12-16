@@ -23,8 +23,6 @@ import javax.ws.rs.core.MediaType;
  */
 @Path("buchungen")
 public class BuchungService {
-    
-    
     /**
     *  Es sollen alle Buchungen für einen gegebenen Kunden abgefragt werden 
        können. Der Kundenname wird hierbei als String übergeben. Rückgabe ist die 

@@ -38,7 +38,6 @@ public class ReiseService {
          * @param Name des Kunden
          * @return 
          */
-    
         @POST
 	@Path("{reisenummer}/bestellung")
 	@Consumes(MediaType.TEXT_PLAIN)
@@ -54,6 +53,7 @@ public class ReiseService {
 		}
 		return "";
 	}
+        
         /**
          * Es soll die Liste aller Reise-Objekte im Format 
          * XML erfragt werden können. 
@@ -73,8 +73,7 @@ public class ReiseService {
             }
             
             return reisen;
-        }
-        
+        }       
         
         /**
          *  Für eine Reise mit gegebener Reisenummer soll die Liste aller Buchungs-
@@ -88,9 +87,7 @@ public class ReiseService {
         @Produces(MediaType.APPLICATION_XML)
         public List<Buchung> getReisenByReisenr(@PathParam("reisenr")int reisenr) {
             return AlleReisen.getInstance().getReisebyReisenr(reisenr).getBuchungen();
-        }
-        
-        
+        }    
         
         /**
         * Für eine Reise mit gegebener Reisenummer soll der aktuelle Preis erfragt 
@@ -105,12 +102,4 @@ public class ReiseService {
             String preis = Integer.toString(AlleReisen.getInstance().getReisebyReisenr(reisenr).getPreis());
             return preis;
         }
-        
-        
-        
-        
-       
-        
-        
-    
 }

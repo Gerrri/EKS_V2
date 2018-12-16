@@ -24,8 +24,6 @@ import javax.ws.rs.core.Response;
  */
 @Path("veranstalter")
 public class VeranstalterService {
-   
-
     /**
      * Nur zum Testen
      * @param nr Nummer des Veranstalters
@@ -41,7 +39,6 @@ public class VeranstalterService {
         }
         return null;
     }
-    
     
     /**
     *Für einen Veranstalter mit gegebenem Namen soll eine neue Reise erstellt 
@@ -67,7 +64,6 @@ public class VeranstalterService {
     return "";
     }
     
-     
     /**
      * Erzeugung eines neuen Veranstalters. Hierbei werden der Name und die 
      *  Adresse des neuen Veranstalters in XML angegeben. 
@@ -85,7 +81,6 @@ public class VeranstalterService {
         }
     }
          
-    
     /**
      * Abfrage der Veranstalter-Ressource für einen Veranstalter mit gegebenem 
        Namen. Als Rückgabe soll eine XML-Beschreibung der Ressource geliefert werden. 
