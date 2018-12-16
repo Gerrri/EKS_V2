@@ -9,12 +9,8 @@ import eks_v2_hw.entity.Reise;
 import eks_v2_hw.entity.Veranstalter;
 import eks_v2_hw.server.db.AlleReisen;
 import eks_v2_hw.server.db.AlleVeranstaltungen;
-import java.util.List;
-import static javax.swing.text.html.FormSubmitEvent.MethodType.GET;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
-import static javax.ws.rs.HttpMethod.GET;
-import static javax.ws.rs.HttpMethod.POST;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
@@ -36,7 +32,7 @@ public class VeranstalterService {
      * @return Namen eines Veranstalters
      */
     @GET
-    @Path("{nr}")
+    @Path("id/{nr}")
     @Produces(MediaType.TEXT_PLAIN)
     public String getVeranstalter(@PathParam("nr") int nr) {
         Veranstalter v = AlleVeranstaltungen.getInstance().getVeranstalter().get(nr);
@@ -99,8 +95,9 @@ public class VeranstalterService {
     @Path("{name}")
     @Consumes(MediaType.TEXT_PLAIN)
     @Produces(MediaType.APPLICATION_XML)
-    public Veranstalter getVeranstalterResByVeranstalter(@PathParam("{name}") String name){
-        return AlleVeranstaltungen.getInstance().getVeranstalterByName(name);
+    public Veranstalter getVeranstalterResByVeranstalter(@PathParam("name") String name){
+        Veranstalter v = AlleVeranstaltungen.getInstance().getVeranstalterByName(name);
+        return v;
     }
     
             

@@ -5,11 +5,15 @@
  */
 package eks_v2_hw;
 
+import eks_v2_hw.entity.Buchung;
 import eks_v2_hw.entity.Veranstalter;
+import java.util.List;
+import static javax.swing.UIManager.get;
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.Entity;
 import javax.ws.rs.client.WebTarget;
+import javax.ws.rs.core.GenericType;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
@@ -24,7 +28,8 @@ public class Client_main {
     
      WebTarget target = client.target("http://localhost:55554/reiseservice");
      Response resp;
-     
+    
+    System.out.println("------------------------- 1 -------------------------");
     //Es sollen die Veranstalter „Tschiller“ mit Adresse „Hamburg“, „Odenthal“ mit 
     //Adresse „Ludwigshafen“ und „Lessing“ mit Adresse „Weimar“ angelegt werden. 
     
@@ -36,23 +41,60 @@ public class Client_main {
         System.out.println("Tschiller: " + resp.getStatusInfo().toString());
 
         //2. Veranstalter anlegen
-        Veranstalter Odenthal = (new Veranstalter());
-        tschiller.setName("Odenthal");
-        tschiller.setAdresse("Ludwigshafen");
-        resp = target.path("veranstalter").request().post(Entity.entity(tschiller, MediaType.APPLICATION_XML));
+        Veranstalter odenthal = (new Veranstalter());
+        odenthal.setName("Odenthal");
+        odenthal.setAdresse("Ludwigshafen");
+        resp = target.path("veranstalter").request().post(Entity.entity(odenthal, MediaType.APPLICATION_XML));
         System.out.println("Odenthal: " + resp.getStatusInfo().toString());
 
         //3. Veranstalter anlegen
-        Veranstalter Lessing = (new Veranstalter());
-        tschiller.setName("Lessing");
-        tschiller.setAdresse("Weimar");
-        resp = target.path("veranstalter").request().post(Entity.entity(tschiller, MediaType.APPLICATION_XML));
+        Veranstalter lessing = (new Veranstalter());
+        lessing.setName("Lessing");
+        lessing.setAdresse("Weimar");
+        resp = target.path("veranstalter").request().post(Entity.entity(lessing, MediaType.APPLICATION_XML));
         System.out.println("Lessing: " + resp.getStatusInfo().toString());
         
         
+    System.out.println("------------------------- 2 -------------------------");
     //Es soll die Veranstalter-Ressource für den Veranstalter mit Namen „Tschiller“ 
     //erfragt werden und die Attribute der Rückgabe sollen ausgegeben werden. 
-     
+        Veranstalter v = target.path("veranstalter").path(tschiller.getName()).request().accept(MediaType.APPLICATION_XML).get(Veranstalter.class);
+        System.out.println("Veranstalter: " + v.getName() + ", in " + v.getAdresse());
+    
+    System.out.println("------------------------- 3 -------------------------");    
+    //Es soll für jeden Veranstalter jeweils eine Reise angelegt werden mit dem Preis 
+    //300€ für „Tschiller“, 750€ für „Odenthal“ und 990€ 
+    //für „Lessing“. Es sollen die vergebenen Reisenummern ausgegeben werden. 
+        String tschiller_nr = target.path("veranstalter").path(tschiller.getName()).path("reise").request().post(Entity.entity(300, MediaType.TEXT_PLAIN), String.class);
+        System.out.println("Reisenummer "+tschiller.getName()+": "+tschiller_nr);
+        
+        String lessing_nr = target.path("veranstalter").path(lessing.getName()).path("reise").request().post(Entity.entity(750, MediaType.TEXT_PLAIN), String.class);
+        System.out.println("Reisenummer "+lessing.getName()+": "+lessing_nr);
+        
+        String odenthal_nr = target.path("veranstalter").path(odenthal.getName()).path("reise").request().post(Entity.entity(990, MediaType.TEXT_PLAIN), String.class);
+        System.out.println("Reisenummer "+odenthal.getName()+": "+odenthal_nr);
+    
+        
+    System.out.println("------------------------- 4 -------------------------");
+    //Für die vom Veranstalter „Tschiller“ veranstaltete Reise soll eine Buchung vom 
+    //Kunden mit dem Namen „Werner“ erstellt werden. Die 
+    //Daten der Rückgabe sollen ausgegeben werden. 
+        String buchungs_nr = target.path("reisen").path(tschiller_nr).path("bestellung").request().post(Entity.entity("Werner", MediaType.TEXT_PLAIN), String.class);
+        System.out.println("Buchungsnummer Werner: "+buchungs_nr);
+        
+        //String buchungs_nr2 = target.path("reisen").path(lessing_nr).path("bestellung").request().post(Entity.entity("Otto", MediaType.TEXT_PLAIN), String.class);
+        //System.out.println("Buchungsnummer Otto: "+buchungs_nr2);
+        
+    System.out.println("------------------------- 5 -------------------------");
+    //Es sollen alle Buchungen von „Werner“ erfragt werden und die jeweiligen 
+    //Buchungsnummern ausgegeben werden.  
+        List<Buchung> lb = target.path("buchung").path("getByName").queryParam("name", "Werner").request().accept(MediaType.APPLICATION_XML).get(new GenericType<List<Buchung>>() {});
+    
+        System.out.println("Buchungen (Werner): ");
+        for(Buchung b : lb){
+            System.out.println("Buchungsnummer: "+ b.getBuchungsnr());
+        }
+    
     }
 }
     

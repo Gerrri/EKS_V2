@@ -34,17 +34,17 @@ public class ReiseService {
          * Dienst liefert die Buchungsnummer der neu angelegte n Buchung als String 
          * zurück. Eine Buchungsnummer muss innerhalb des Reisebüros eindeutig sein. 
          * (Eine neue Ressource über eine Assoziation erstellen) 
-         * @param registrierungsnummer
-         * @param name
+         * @param reisenummer
+         * @param Name des Kunden
          * @return 
          */
     
         @POST
-	@Path("{registrierungsnummer}/bestellung")
+	@Path("{reisenummer}/bestellung")
 	@Consumes(MediaType.TEXT_PLAIN)
 	@Produces(MediaType.TEXT_PLAIN)
-	public String createBuchung (@PathParam("registrierungsnummer") int registrierungsnummer, String name) {
-		Reise reise = AlleReisen.getInstance().getReisebyReisenr(registrierungsnummer);
+	public String createBuchung (@PathParam("reisenummer") int reisenummer, String name) {
+		Reise reise = AlleReisen.getInstance().getReisebyReisenr(reisenummer);
 		if (reise != null) {
 
 		        Buchung buchung = AlleBuchungen.getInstance().createBuchung(reise);

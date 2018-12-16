@@ -56,6 +56,7 @@ public class AlleReisen {
     public Reise createReise(Veranstalter v){
         Reise r = new Reise();
         r.setReisenr(reisen.size()+1);
+        this.addReise(r);
         v.addReise(r);
         
         return r;

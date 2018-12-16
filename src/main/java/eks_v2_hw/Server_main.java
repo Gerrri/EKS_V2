@@ -6,6 +6,8 @@
 package eks_v2_hw;
 
 import com.sun.net.httpserver.HttpServer;
+import eks_v2_hw.server.res.BuchungService;
+import eks_v2_hw.server.res.ReiseService;
 import eks_v2_hw.server.res.VeranstalterService;
 import java.net.URI;
 import org.glassfish.jersey.jdkhttp.JdkHttpServerFactory;
@@ -24,8 +26,13 @@ public class Server_main {
      */
     public static void main(String[] args) throws Exception{
         URI endpoint = new URI("http://localhost:55554/reiseservice");
-        ResourceConfig rc = new ResourceConfig(VeranstalterService.class);
-        HttpServer server = JdkHttpServerFactory.createHttpServer(endpoint, rc);
+        ResourceConfig rc = new ResourceConfig(new Class<?>[] {
+            BuchungService.class,
+            ReiseService.class,
+            VeranstalterService.class
+        });
+        HttpServer server = JdkHttpServerFactory.createHttpServer(
+                endpoint, rc);
         System.out.println("Server wurde gestarten :)");
     }
     

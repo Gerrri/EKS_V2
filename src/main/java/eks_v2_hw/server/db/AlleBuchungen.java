@@ -41,9 +41,8 @@ public class AlleBuchungen {
     public Buchung createBuchung(Reise reise){
       Buchung b = new Buchung();
       
-      b.setBuchungsnr(buchungen.size()+1);
+      b.setBuchungsnr(this.buchungen.size()+1);
       reise.addBuchung(b);
-      
       this.addBuchung(b);
       return b;
     }
@@ -52,7 +51,7 @@ public class AlleBuchungen {
         List<Buchung> lb = new LinkedList<>();
         
         for(Buchung b: buchungen){
-            if(b.getNameBesteller() == name){
+            if(b.getNameBesteller().equals(name)){
                 lb.add(b);
             }
         }

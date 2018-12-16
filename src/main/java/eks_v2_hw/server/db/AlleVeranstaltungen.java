@@ -35,11 +35,10 @@ public class AlleVeranstaltungen {
     
     public Veranstalter getVeranstalterByName(String name){
         for(Veranstalter v: veranstalter){
-            if(v.getName() == name){
+            if(v.getName().equals(name)){
                 return v;
             }
         }
-        
         return null;
     }
     

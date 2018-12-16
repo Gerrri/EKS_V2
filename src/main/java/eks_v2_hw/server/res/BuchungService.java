@@ -16,6 +16,7 @@ import static javax.ws.rs.HttpMethod.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
 
@@ -34,18 +35,16 @@ public class BuchungService {
        Menge an entsprechenden Buchungsobjekte in XML. (Selektion)
     */
     @GET
-    @Path("{name}")
+    @Path("getByName")
     @Consumes(MediaType.TEXT_PLAIN)
     @Produces(MediaType.APPLICATION_XML)
-    public List<Buchung> getBuchung(@PathParam("{name}") String name){
-        return AlleBuchungen.getInstance().getBuchungByName(name);
+    public List<Buchung> getBuchung(@QueryParam("name") String name){
+        List<Buchung> lb = AlleBuchungen.getInstance().getBuchungByName(name);
+        return lb;
     }
     
-    /**
-     * Abfrage der Veranstalter-Ressource für einen Veranstalter mit gegebenem 
-       Namen. Als Rückgabe soll eine XML-Beschreibung der Ressource geliefert werden. 
-       (Eine einzelne Ressource adressieren)
-     */
+   
+    
     
     
     
