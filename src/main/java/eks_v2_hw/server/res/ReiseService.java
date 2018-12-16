@@ -60,7 +60,6 @@ public class ReiseService {
          * (Auf alle Ressourcen eines Containers zugreifen)
         */
         @GET
-        @Path("reisen")
         @Produces(MediaType.APPLICATION_XML)
         public List<Reise> getReisen() {
             List<Reise> reisen = new LinkedList<>();
@@ -87,7 +86,7 @@ public class ReiseService {
         @GET
         @Path("{reisenr}/buchungen")
         @Produces(MediaType.APPLICATION_XML)
-        public List<Buchung> getReisenByReisenr(@PathParam("{reisenr}")int reisenr) {
+        public List<Buchung> getReisenByReisenr(@PathParam("reisenr")int reisenr) {
             Reise r = AlleReisen.getInstance().getReisebyReisenr(reisenr);
             
             return r.getBuchungen();
@@ -103,9 +102,10 @@ public class ReiseService {
         @GET
         @Path("{reisenr}/preis")
         @Produces(MediaType.TEXT_PLAIN)
-        public String getReisePreisByreisenr(@PathParam("{reisenr}")int reisenr){
+        public String getReisePreisByReisenr(@PathParam("reisenr")int reisenr){
             //hole passende Reise und Parse Int werde zu String
-            return Integer.toString(AlleReisen.getInstance().getReisebyReisenr(reisenr).getPreis());
+            String preis = Integer.toString(AlleReisen.getInstance().getReisebyReisenr(reisenr).getPreis());
+            return preis;
         }
         
         

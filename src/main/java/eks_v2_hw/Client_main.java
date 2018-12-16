@@ -6,6 +6,7 @@
 package eks_v2_hw;
 
 import eks_v2_hw.entity.Buchung;
+import eks_v2_hw.entity.Reise;
 import eks_v2_hw.entity.Veranstalter;
 import java.util.List;
 import static javax.swing.UIManager.get;
@@ -88,13 +89,62 @@ public class Client_main {
     System.out.println("------------------------- 5 -------------------------");
     //Es sollen alle Buchungen von „Werner“ erfragt werden und die jeweiligen 
     //Buchungsnummern ausgegeben werden.  
-        List<Buchung> lb = target.path("buchung").path("getByName").queryParam("name", "Werner").request().accept(MediaType.APPLICATION_XML).get(new GenericType<List<Buchung>>() {});
+        List<Buchung> lb = target.path("buchungen").queryParam("name", "Werner").request().accept(MediaType.APPLICATION_XML).get(new GenericType<List<Buchung>>() {});
     
         System.out.println("Buchungen (Werner): ");
         for(Buchung b : lb){
             System.out.println("Buchungsnummer: "+ b.getBuchungsnr());
         }
     
+    System.out.println("------------------------- 6 -------------------------");
+    //Für die vom Veranstalter „Tschiller“ veranstaltete Reise soll eine Buchung vom 
+    //Kunden mit dem Namen „Mueller“ erstellt werden. Die Daten der Rückgabe sollen ausgegeben werden. 
+        String buchungs_nr2 = target.path("reisen").path(tschiller_nr).path("bestellung").request().post(Entity.entity("Mueller", MediaType.TEXT_PLAIN), String.class);
+        System.out.println("Buchungsnummer Mueller: "+buchungs_nr2);
+    
+     
+    System.out.println("------------------------- 7 -------------------------");
+    //Für die vom Veranstalter „Tschiller“ veranstaltete Reise sollen alle Buchungen 
+    //ermittelt und die zugehörigen Attributwerte ausgegeben werden. 
+    //List<Buchung> lb2 = target.path("buchungen").request().accept(MediaType.APPLICATION_XML).get(new GenericType<List<Buchung>>() {});
+    /*
+    List<Reise> lr2 = target.path("reisen").request().accept(MediaType.APPLICATION_XML).get(new GenericType<List<Reise>>() {});
+   
+    tschiller = target.path("veranstalter").path(tschiller.getName()).request().accept(MediaType.APPLICATION_XML).get(Veranstalter.class);
+    
+    for(Reise r:lr2){
+        for(Reise r_t:tschiller.getReisen()){
+         if(r_t.contains(r)){
+            System.out.println("Reisenummer: "+r.getPreis()+"  |  Preis: "+r.getPreis());
+         }  
+        }
     }
+    */
+    
+    
+    System.out.println("------------------------- 8 -------------------------");
+    //Für die vom Veranstalter „Odenthal“ veranstaltete Reise soll der Preis 
+    //abgefragt und ausgegeben werden.  
+        String preis_odenthal = target.path("reisen").path(odenthal_nr).path("preis").request().accept(MediaType.TEXT_PLAIN).get(String.class);
+        System.out.println("Preis odenthal: "+preis_odenthal);
+    
+        
+    System.out.println("------------------------- 9 -------------------------");
+    //Es soll die Liste aller Reisen erfragt werden und dann die Preise und 
+    //Reisenummern der Reisen ausgegeben werden. 
+        List<Reise> lr = target.path("reisen").request().accept(MediaType.APPLICATION_XML).get(new GenericType<List<Reise>>() {});
+        
+        for(Reise r: lr){
+            System.out.println("Reisenummer : "+ r.getReisenr()+"  |  Preis: "+r.getPreis());
+        }
+        
+        
+        
+        
+        
+    client.close();
+    }
+    
+    
 }
     

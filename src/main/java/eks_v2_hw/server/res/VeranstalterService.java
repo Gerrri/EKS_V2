@@ -96,8 +96,7 @@ public class VeranstalterService {
     @Consumes(MediaType.TEXT_PLAIN)
     @Produces(MediaType.APPLICATION_XML)
     public Veranstalter getVeranstalterResByVeranstalter(@PathParam("name") String name){
-        Veranstalter v = AlleVeranstaltungen.getInstance().getVeranstalterByName(name);
-        return v;
+        return AlleVeranstaltungen.getInstance().getVeranstalterByName(name);
     }
     
             
