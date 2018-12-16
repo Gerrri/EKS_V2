@@ -6,6 +6,7 @@
 package eks_v2_hw.server.db;
 
 import eks_v2_hw.entity.Reise;
+import eks_v2_hw.entity.Veranstalter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -50,5 +51,13 @@ public class AlleReisen {
     
     public boolean removeReisen (Reise r){
         return this.reisen.remove(r);
+    }
+    
+    public Reise createReise(Veranstalter v){
+        Reise r = new Reise();
+        r.setReisenr(reisen.size()+1);
+        v.addReise(r);
+        
+        return r;
     }
 }

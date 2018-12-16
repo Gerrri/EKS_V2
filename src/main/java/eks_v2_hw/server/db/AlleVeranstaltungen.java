@@ -33,6 +33,16 @@ public class AlleVeranstaltungen {
         return this.veranstalter;
     } 
     
+    public Veranstalter getVeranstalterByName(String name){
+        for(Veranstalter v: veranstalter){
+            if(v.getName() == name){
+                return v;
+            }
+        }
+        
+        return null;
+    }
+    
     public boolean addVeranstaler(Veranstalter v){
         return this.veranstalter.add(v);
     }

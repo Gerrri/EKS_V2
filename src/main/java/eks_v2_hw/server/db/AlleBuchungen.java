@@ -8,6 +8,7 @@ package eks_v2_hw.server.db;
 import eks_v2_hw.entity.Buchung;
 import eks_v2_hw.entity.Reise;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -45,6 +46,18 @@ public class AlleBuchungen {
       
       this.addBuchung(b);
       return b;
+    }
+    
+    public List<Buchung> getBuchungByName(String name){
+        List<Buchung> lb = new LinkedList<>();
+        
+        for(Buchung b: buchungen){
+            if(b.getNameBesteller() == name){
+                lb.add(b);
+            }
+        }
+        
+        return lb;
     }
     
     

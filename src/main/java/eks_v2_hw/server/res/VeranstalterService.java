@@ -5,8 +5,11 @@
  */
 package eks_v2_hw.server.res;
 
+import eks_v2_hw.entity.Reise;
 import eks_v2_hw.entity.Veranstalter;
+import eks_v2_hw.server.db.AlleReisen;
 import eks_v2_hw.server.db.AlleVeranstaltungen;
+import java.util.List;
 import static javax.swing.text.html.FormSubmitEvent.MethodType.GET;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
@@ -43,30 +46,36 @@ public class VeranstalterService {
         return null;
     }
     
+    
     /**
-    Für einen Veranstalter mit gegebenem Namen soll eine neue Reise erstellt 
-    werden. Es wird hierbei der Preis der neuen Reise als String übergeben. Der 
-    Dienst liefert die Reisenummer der neu angelegten Reise als String zurück. Eine 
-    Reisenummer muss innerhalb des Reisebüros eindeutig sein. 
-    (Eine neue Ressource über eine Assoziation erstellen) 
+    *Für einen Veranstalter mit gegebenem Namen soll eine neue Reise erstellt 
+    *werden. Es wird hierbei der Preis der neuen Reise als String übergeben. Der 
+    *Dienst liefert die Reisenummer der neu angelegten Reise als String zurück. Eine 
+    *Reisenummer muss innerhalb des Reisebüros eindeutig sein. 
+    *(Eine neue Ressource über eine Assoziation erstellen) 
     */
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
+    @POST
+    @Path("{name}/reise")
+    @Consumes(MediaType.TEXT_PLAIN)
+    @Produces(MediaType.TEXT_PLAIN)
+    public String createReise(@PathParam("name") String name,String preis){
+        Veranstalter v = AlleVeranstaltungen.getInstance().getVeranstalterByName(name);
+        
+        if(v!=null){
+            
+        Reise r = AlleReisen.getInstance().createReise(v);
+        r.setPreis(Integer.parseInt(preis));
+        
+        return Integer.toString(r.getReisenr());
+        }
+    return "";
+    }
     
      
     /**
      * Erzeugung eines neuen Veranstalters. Hierbei werden der Name und die 
-       Adresse des neuen Veranstalters in XML angegeben. 
-       (Eine neue Ressource erzeugen)
+     *  Adresse des neuen Veranstalters in XML angegeben. 
+     * (Eine neue Ressource erzeugen)
      * @param veranstalter
      * @return 
      */
@@ -79,7 +88,21 @@ public class VeranstalterService {
             return Response.status(Response.Status.BAD_REQUEST).build();
         }
     }
-            
+         
+    
+    /**
+     * Abfrage der Veranstalter-Ressource für einen Veranstalter mit gegebenem 
+       Namen. Als Rückgabe soll eine XML-Beschreibung der Ressource geliefert werden. 
+       (Eine einzelne Ressource adressieren)
+     */
+    @GET
+    @Path("{name}")
+    @Consumes(MediaType.TEXT_PLAIN)
+    @Produces(MediaType.APPLICATION_XML)
+    public Veranstalter getVeranstalterResByVeranstalter(@PathParam("{name}") String name){
+        return AlleVeranstaltungen.getInstance().getVeranstalterByName(name);
+    }
+    
             
             
     
