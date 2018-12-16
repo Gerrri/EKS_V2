@@ -106,20 +106,13 @@ public class Client_main {
     System.out.println("------------------------- 7 -------------------------");
     //Für die vom Veranstalter „Tschiller“ veranstaltete Reise sollen alle Buchungen 
     //ermittelt und die zugehörigen Attributwerte ausgegeben werden. 
-    //List<Buchung> lb2 = target.path("buchungen").request().accept(MediaType.APPLICATION_XML).get(new GenericType<List<Buchung>>() {});
-    /*
-    List<Reise> lr2 = target.path("reisen").request().accept(MediaType.APPLICATION_XML).get(new GenericType<List<Reise>>() {});
-   
-    tschiller = target.path("veranstalter").path(tschiller.getName()).request().accept(MediaType.APPLICATION_XML).get(Veranstalter.class);
+    //reisen/{reisenr}/buchungen
     
-    for(Reise r:lr2){
-        for(Reise r_t:tschiller.getReisen()){
-         if(r_t.contains(r)){
-            System.out.println("Reisenummer: "+r.getPreis()+"  |  Preis: "+r.getPreis());
-         }  
-        }
+    List<Buchung> lb2 = target.path("reisen").path(tschiller_nr).path("buchungen").request().accept(MediaType.APPLICATION_XML).get(new GenericType<List<Buchung>>() {});
+    
+    for(Buchung b:lb2){
+        System.out.println("Name: "+b.getNameBesteller()+"  |   Buchungsnummer: " + b.getBuchungsnr());
     }
-    */
     
     
     System.out.println("------------------------- 8 -------------------------");
