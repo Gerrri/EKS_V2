@@ -87,9 +87,7 @@ public class ReiseService {
         @Path("{reisenr}/buchungen")
         @Produces(MediaType.APPLICATION_XML)
         public List<Buchung> getReisenByReisenr(@PathParam("reisenr")int reisenr) {
-            Reise r = AlleReisen.getInstance().getReisebyReisenr(reisenr);
-            
-            return r.getBuchungen();
+            return AlleReisen.getInstance().getReisebyReisenr(reisenr).getBuchungen();
         }
         
         
